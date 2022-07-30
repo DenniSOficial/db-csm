@@ -1,0 +1,133 @@
+{
+  "database": "csm-db",
+  "version": 1,
+  "encrypted": false,
+  "mode": "full",
+  "tables": [
+	{
+		"name": "EquipmentFailure",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "Falla 1"],
+			[2, "Falla 2"]
+		]
+	},
+	{
+		"name": "Type",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "Correctivo"],
+			[2, "Preventivo"],
+			[3, "Predictivo"],
+			[4, "Inspección"]
+		]
+	},
+	{
+		"name": "Subtype",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "Mayor"],
+			[2, "Menor"]
+		]
+	},
+	{
+		"name": "OrderServiceState",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "Pendiente"],
+			[2, "En proceso"],
+			[3, "Terminado"]
+		]
+	},
+	{
+		"name": "EquipmentState",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "En mantenimiento"],
+			[2, "Operativo"],
+			[3, "Inoperativo"]
+		]
+	},
+	{
+		"name": "Article",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "name", "value": "TEXT NOT NULL" },
+		],
+		"values": [
+			[1, "Fusible 1"],
+			[2, "Fusible 2"],
+			[3, "Fusible 3"]
+		]
+	},
+	{
+		"name": "OrderService",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "date", "value": "TEXT NOT NULL" },
+			{ "column": "equipment", "value": "TEXT" },
+			{ "column": "client", "value": "TEXT" },
+			{ "column": "equipmentfailureid", "value": "INTEGER" },
+			{ "column": "typeid", "value": "INTEGER" },
+			{ "column": "subtypeid", "value": "INTEGER" },
+			{ "column": "orderserviceid", "value": "INTEGER" },
+			{ "column": "equipmentstateid", "value": "INTEGER" },
+			{ "column": "km", "value": "TEXT" },
+			{ "column": "horometro", "value": "TEXT" },
+			{ "column": "obs", "value": "TEXT" },
+			{
+				"foreignkey": "equipmentfailureid",
+				"value": "REFERENCES EquipmentFailure(id)"
+			},
+			{
+				"foreignkey": "typeid",
+				"value": "REFERENCES Type(id)"
+			},
+			{
+				"foreignkey": "subtypeid",
+				"value": "REFERENCES Subtype(id)"
+			},
+			{
+				"foreignkey": "orderserviceid",
+				"value": "REFERENCES OrderServiceState(id)"
+			},
+			{
+				"foreignkey": "equipmentstateid",
+				"value": "REFERENCES EquipmentState(id)"
+			},
+		]
+	},
+	{
+		"name": "OrderServiceAllServices",
+		"schema": [
+			{ "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+			{ "column": "orderserviceid", "value": "INTEGER" },
+			{ "column": "articleid", "value": "INTEGER" },
+			{ "column": "type", "value": "TEXT NOT NULL" },
+			{
+				"foreignkey": "orderserviceid",
+				"value": "REFERENCES OrderService(id)"
+			},
+			{
+				"foreignkey": "articleid",
+				"value": "REFERENCES Article(id)"
+			},
+		]
+	},
+  ]
+}
